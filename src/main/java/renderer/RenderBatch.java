@@ -103,16 +103,26 @@ public class RenderBatch {
         // Add properties to local vertices array
         loadVertexProperties(index);
 
-        if (this.numSprites >= this.maxBatchSize){
+        if (this.numSprites >= this.maxBatchSize) {
             this.hasRoom = false;
 
         }
     }
 
     public void render(){
-        // Rebuffer frame
-        glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        boolean isRebuffer = false;
+        for (int i = 0; i < numSprites; i++){
+            if (sprites[i].isDirty()){
+                loadVertexProperties(i);
+                sprites[i].setClean();
+                isRebuffer = true;
+            }
+        }
+        if (isRebuffer) {
+            // Rebuffer frame
+            glBindBuffer(GL_ARRAY_BUFFER, vboID);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        }
 
         // Use shader
         shader.use();
@@ -222,5 +232,13 @@ public class RenderBatch {
 
     public boolean hasRoom(){
         return this.hasRoom;
+    }
+
+    public boolean hasTexRoom(){
+        return this.textures.size() < 8;
+    }
+
+    public boolean hasTexture(Texture tex){
+        return this.textures.contains(tex);
     }
 }

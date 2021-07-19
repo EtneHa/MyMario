@@ -171,6 +171,7 @@ public class Shader {
     public void uploadIntArray(String varName, int[] slots){
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
         use();
-        glUniform2iv(varLocation,slots);
+        //glUniform2iv(varLocation,slots); // Error here!!!!!!!!!!
+        glUniform1iv(varLocation,slots);
     }
 }
