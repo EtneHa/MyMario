@@ -30,12 +30,16 @@ public class LevelEditorScene extends Scene {
         this.sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
         this.camera = new Camera(new Vector2f(-250, 0));
-        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        obj2.addComponent(new SpriteRenderer(sprites.getSprite(0)));
+        GameObject obj2 = new GameObject("Object 2",
+                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)),
+                2);
+        obj2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage2.png"))));
         this.addGameObjectToScene(obj2);
 
-        this.obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        this.obj1.addComponent(new SpriteRenderer(sprites.getSprite(10)));
+        this.obj1 = new GameObject("Object 1",
+                new Transform(new Vector2f(200, 100), new Vector2f(256, 256)),
+                2);
+        this.obj1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage1.png"))));
         this.addGameObjectToScene(obj1);
 
     }
@@ -59,6 +63,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+        /*
         //obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(0));
         if (KeyListener.isKeyPressed(GLFW_KEY_RIGHT)) {
             if (lastKey != GLFW_KEY_RIGHT) {
@@ -99,7 +104,7 @@ public class LevelEditorScene extends Scene {
             }
         } else if (KeyListener.isKeyPressed(GLFW_KEY_DOWN)) {
             obj1.transform.position.set(new Vector2f(obj1.transform.position.x, obj1.transform.position.y - dt * 50f));
-        }
+        }*/
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);

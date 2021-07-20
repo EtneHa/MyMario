@@ -8,6 +8,7 @@ import org.lwjgl.system.windows.WNDCLASSEX;
 
 import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -28,7 +29,7 @@ public class Renderer {
     public void add(SpriteRenderer spr){
         boolean added = false;
         for (RenderBatch batch : batches){
-            if (batch.hasRoom()){
+            if (batch.hasRoom() && (batch.zIndex() == spr.gameObject.zIndex())){
                 Texture texture = spr.getTexture();
                 if (texture == null || batch.hasTexRoom() || batch.hasTexture(spr.getTexture())) {
                     batch.addSprite(spr);
@@ -39,10 +40,11 @@ public class Renderer {
         }
 
         if (!added){
-            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE);
+            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE, spr.gameObject.zIndex());
             newBatch.start();
-            batches.add(newBatch);
+            batches.add(newBatch);  // Add new Batch
             newBatch.addSprite(spr);
+            Collections.sort(batches);
         }
     }
 
