@@ -3,6 +3,7 @@ package jade;
 import components.Sprite;
 import components.SpriteRenderer;
 import components.SpriteSheet;
+import imgui.ImGui;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
@@ -36,11 +37,13 @@ public class LevelEditorScene extends Scene {
         obj2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage2.png"))));
         this.addGameObjectToScene(obj2);
 
+
         this.obj1 = new GameObject("Object 1",
                 new Transform(new Vector2f(200, 100), new Vector2f(256, 256)),
                 2);
-        this.obj1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/blendImage1.png"))));
+        this.obj1.addComponent(new SpriteRenderer(new Vector4f(1.0f, 0.0f,1.0f,1)));
         this.addGameObjectToScene(obj1);
+        this.activeGameObject = obj1;
 
     }
 
@@ -55,11 +58,6 @@ public class LevelEditorScene extends Scene {
                 new SpriteSheet(AssetPool.getTexture("assets/images/1.jpg"),
                         10, 10, 26, 0));
     }
-
-    private int spriteIndex = 0;
-    private float spriteFlipTime = 0.1f;
-    private float spriteFlipTimeLeft = 0.1f;
-    private int lastKey = 0;
 
     @Override
     public void update(float dt) {
@@ -111,5 +109,12 @@ public class LevelEditorScene extends Scene {
         }
 
         this.renderer.render();
+    }
+
+    @Override
+    public void imgui(){
+        ImGui.begin("Test Window");
+        ImGui.text("This is some text");
+        ImGui.end();
     }
 }

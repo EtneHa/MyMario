@@ -156,7 +156,7 @@ public class Window {
                 fadeToBlack = true;
             }
 
-            this.imGuiLayer.update(dt);
+            this.imGuiLayer.update(dt, currentScene);
 
 
             //if (MouseListener.)

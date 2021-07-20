@@ -1,5 +1,5 @@
-jade/Component.java
- jade.Component
+jade/Transform.java
+ jade.Transform
 components/SpriteSheet.java
  components.SpriteSheet
 jade/KeyListener.java
@@ -16,29 +16,29 @@ components/Sprite.java
  components.Sprite
 renderer/Texture.java
  renderer.Texture
-jade/Transform.java
- jade.Transform
-jade/LevelEditorScene.java
- jade.LevelEditorScene
-jade/Scene.java
- jade.Scene
-components/FontRenderer.java
- components.FontRenderer
-renderer/Renderer.java
- renderer.Renderer
-jade/GameObject.java
- jade.GameObject
-components/SpriteRenderer.java
- components.SpriteRenderer
+Main.java
+ Main
 renderer/RenderBatch.java
  renderer.RenderBatch
 jade/LevelScene.java
  jade.LevelScene
-Main.java
- Main
-jade/Window.java
- jade.Window
+components/FontRenderer.java
+ components.FontRenderer
 jade/ImGuiLayer.java
  jade.ImGuiLayer
  jade.ImGuiLayer$1
  jade.ImGuiLayer$2
+jade/GameObject.java
+ jade.GameObject
+components/SpriteRenderer.java
+ components.SpriteRenderer
+jade/Scene.java
+ jade.Scene
+jade/Component.java
+ jade.Component
+renderer/Renderer.java
+ renderer.Renderer
+jade/Window.java
+ jade.Window
+jade/LevelEditorScene.java
+ jade.LevelEditorScene
