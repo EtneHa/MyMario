@@ -10,6 +10,8 @@ public class GameObject {
     public Transform transform;
     private int zIndex;
 
+    public GameObject(){}
+
     public GameObject(String name, int zIndex){
         this.name = name;
         components = new ArrayList<>();

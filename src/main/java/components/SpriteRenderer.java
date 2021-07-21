@@ -9,16 +9,19 @@ import org.lwjgl.system.CallbackI;
 import renderer.Texture;
 
 public class SpriteRenderer extends Component {
-    private Vector4f color;
-    private Sprite sprite;
-    private Transform lastTransform;
+    private Vector4f color = new Vector4f(1,0,0,1);
+    private Sprite sprite = new Sprite();
+    private transient Transform lastTransform;
 
     private boolean isDirty;
 
+    public SpriteRenderer(){}
+
+    /*
     public SpriteRenderer(Vector4f color){
         this.color = color;
         isDirty = true;
-        this.sprite = new Sprite(null);
+        this.sprite = new Sprite();
     }
 
     public SpriteRenderer(Sprite sprite){
@@ -26,6 +29,7 @@ public class SpriteRenderer extends Component {
         isDirty = true;
         this.color = new Vector4f(0,0,0,0);
     }
+     */
 
     public void start(){
         this.lastTransform = gameObject.transform.copy();
