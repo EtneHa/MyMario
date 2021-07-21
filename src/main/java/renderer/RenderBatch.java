@@ -162,7 +162,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         int offset =  index * 4 * VERTEX_SIZE;
 
         Vector4f color = spr.getColor();
-        Vector2f[] texCoords = spr.getTextCoords();
+        Vector2f[] texCoords = spr.getTexCoords();
 
         int texID = 0;
         // [0, tex, tex, tex, ...]

@@ -5,7 +5,7 @@ import renderer.Texture;
 
 public class Sprite {
 
-    private Texture texture;
+    private Texture texture = null;
     private Vector2f[] texCoords= {
             new Vector2f(1,1),
             new Vector2f(1,0),

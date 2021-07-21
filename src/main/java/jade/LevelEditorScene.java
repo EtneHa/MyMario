@@ -18,8 +18,6 @@ import javax.security.auth.kerberos.KerberosTicket;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
-
-    private GameObject obj1;
     private SpriteSheet sprites;
 
     public LevelEditorScene() {
@@ -30,33 +28,37 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
 
+        if(levelLoaded){
+            return;
+        }
+
         this.sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
 
         this.camera = new Camera(new Vector2f(-250, 0));
-        GameObject obj2 = new GameObject("Object 2",
-                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)),
+
+
+        GameObject obj1 = new GameObject("Object 1",
+                new Transform(new Vector2f(200, 100), new Vector2f(256, 256)),
                 2);
         SpriteRenderer spriteRenderer = new SpriteRenderer();
         Sprite sprite = new Sprite();
         sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
         spriteRenderer.setSprite(sprite);
-        obj2.addComponent(spriteRenderer);
-        this.addGameObjectToScene(obj2);
+        obj1.addComponent(spriteRenderer);
+        this.addGameObjectToScene(obj1);
 
 
-        this.obj1 = new GameObject("Object 1",
-                new Transform(new Vector2f(200, 100), new Vector2f(256, 256)),
-                2);
+        GameObject obj2 = new GameObject("Object 2",
+                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)),
+                1);
         SpriteRenderer spriteRenderer1 = new SpriteRenderer();
         Vector4f color = new Vector4f(1, 0,1,1);
         spriteRenderer1.setColor(color);
-        this.obj1.addComponent(spriteRenderer1);
-        this.addGameObjectToScene(obj1);
-        this.activeGameObject = obj1;
+        obj2.addComponent(spriteRenderer1);
+        this.addGameObjectToScene(obj2);
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(sprite));
-        System.out.println(gson.toJson(spriteRenderer1));
+        this.activeGameObject = obj2;
+
     }
 
     private void loadResources() {
