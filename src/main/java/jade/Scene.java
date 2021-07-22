@@ -103,8 +103,8 @@ public abstract class Scene {
             for (int i=0; i < objs.length; i++) {
                 addGameObjectToScene(objs[i]);
             }
+            this.levelLoaded = true;
         }
-        this.levelLoaded = true;
     }
 }
 

@@ -1,6 +1,8 @@
 package jade;
 
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.CallbackI;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
@@ -79,6 +81,26 @@ public class MouseListener {
 
     public double getyPos() {
         return yPos;
+    }
+
+    public static float getOrthoX(){
+        float currentX = (float)get().getxPos();
+
+        currentX = (currentX / (float) Window.getWidth())  * 2.0f - 1.0f;
+        Vector4f tmp = new Vector4f(currentX, 0,0,1);
+        tmp.mul(Window.getScene().getCamera().getInverseProjectionMatrix()).mul(Window.getScene().getCamera().getInverseViewMatrix());
+        currentX = tmp.x;
+        return currentX;
+    }
+
+    public static float getOrthoY(){
+        float currentY = (float)get().getyPos();
+
+        currentY = (currentY / (float) Window.getWidth()) * 2 - 1.0f;
+        Vector4f tmp = new Vector4f(0, currentY,0,1);
+        tmp.mul(Window.getScene().getCamera().getInverseProjectionMatrix()).mul(Window.getScene().getCamera().getInverseViewMatrix());
+        currentY = tmp.y;
+        return currentY;
     }
 
     public double getLastX() {

@@ -39,12 +39,10 @@ public class Window {
         switch (newScene){
             case 0:{
                 currentScene = new LevelEditorScene();
-                currentScene.init();
                 break;
             }
             case 1:{
                 currentScene = new LevelScene();
-                currentScene.init();
                 break;
             }
             default:{
@@ -54,6 +52,7 @@ public class Window {
         }
 
         currentScene.load();
+        currentScene.init();
         currentScene.start();
     }
 

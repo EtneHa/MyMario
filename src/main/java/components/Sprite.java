@@ -12,6 +12,7 @@ public class Sprite {
             new Vector2f(0,0),
             new Vector2f(0,1)
     };
+    private int width, height;
     public Sprite(){}
     /*
     public Sprite(Texture texture){
@@ -45,5 +46,25 @@ public class Sprite {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getTexId(){
+        return texture == null ? -1 : texture.getTexID();
     }
 }
