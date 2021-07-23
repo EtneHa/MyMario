@@ -1,10 +1,10 @@
-package jade;
+package scenes;
 
+import jade.Window;
 import renderer.Renderer;
+import scenes.Scene;
 
-import java.awt.event.KeyEvent;
-
-public class LevelScene extends Scene{
+public class LevelScene extends Scene {
     private Renderer renderer;
 
     public LevelScene(){

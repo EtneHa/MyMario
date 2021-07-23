@@ -4,14 +4,13 @@ import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseListener {
     private static MouseListener instance;
     private double scrollX, scrollY;
     private double xPos, yPos, lastX, lastY;
-    private boolean mouseButtonPressed[] = new boolean[3];
+    private boolean mouseButtonPressed[] = new boolean[9];
     private boolean isDragging;
 
     private MouseListener(){
@@ -39,10 +38,10 @@ public class MouseListener {
     }
 
     public static void mouseButtonCallback(long Window, int button, int act, int mods) {
-        if (act == GLFW_PRESS)
+        if (act == GLFW_PRESS) {
             if (button < get().mouseButtonPressed.length)
                 get().mouseButtonPressed[button] = true;
-        else if (act == GLFW_RELEASE) {
+        } else if (act == GLFW_RELEASE) {
             get().mouseButtonPressed[button] = false;
             get().isDragging = false;
         }
@@ -94,9 +93,9 @@ public class MouseListener {
     }
 
     public static float getOrthoY(){
-        float currentY = (float)get().getyPos();
+        float currentY = Window.getHeight() - (float)get().getyPos();
 
-        currentY = (currentY / (float) Window.getWidth()) * 2 - 1.0f;
+        currentY = (currentY / (float) Window.getHeight()) * 2 - 1.0f;
         Vector4f tmp = new Vector4f(0, currentY,0,1);
         tmp.mul(Window.getScene().getCamera().getInverseProjectionMatrix()).mul(Window.getScene().getCamera().getInverseViewMatrix());
         currentY = tmp.y;

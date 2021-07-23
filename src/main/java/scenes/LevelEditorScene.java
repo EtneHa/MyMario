@@ -1,28 +1,20 @@
-package jade;
+package scenes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import components.Rigidbody;
-import components.Sprite;
-import components.SpriteRenderer;
-import components.SpriteSheet;
+import components.*;
 import imgui.ImGui;
 import imgui.ImVec2;
-import org.joml.Vector2d;
+import jade.*;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import org.lwjgl.system.CallbackI;
-import renderer.Texture;
+import scenes.Scene;
 import util.AssetPool;
-
-import javax.security.auth.kerberos.KerberosTicket;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
     private GameObject obj1;
     private SpriteSheet sprites;
     SpriteRenderer obj1Sprite;
+
+    private MouseControls mouseControls = new MouseControls();
 
     public LevelEditorScene() {
 
@@ -35,6 +27,7 @@ public class LevelEditorScene extends Scene {
         sprites = AssetPool.getSpriteSheet("assets/images/spritesheets/decorationsAndBlocks.png");
         if (levelLoaded) {
             this.activeGameObject = gameObjects.get(1);
+            this.activeGameObject.addComponent(new Rigidbody());
             return;
         }
 
@@ -78,50 +71,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
-        /*
-        //obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(0));
-        if (KeyListener.isKeyPressed(GLFW_KEY_RIGHT)) {
-            if (lastKey != GLFW_KEY_RIGHT) {
-                lastKey = GLFW_KEY_RIGHT;
-                spriteIndex = 0;
-            }
-            obj1.transform.position.set(new Vector2f(obj1.transform.position.x + dt * 50f, obj1.transform.position.y));
-            if (!KeyListener.isKeyPressed(GLFW_KEY_UP)) {
-                if (spriteFlipTimeLeft <= 0) {
-                    spriteFlipTimeLeft = spriteFlipTime;
-                    spriteIndex++;
-                    if (spriteIndex > 3) {
-                        spriteIndex = 1;
-                    }
-                    obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
-                } else {
-                    spriteFlipTimeLeft -= dt;
-                }
-            }
-        } else if (KeyListener.isKeyPressed(GLFW_KEY_LEFT)) {
-            obj1.transform.position.set(new Vector2f(obj1.transform.position.x - dt * 50f, obj1.transform.position.y));
-        }
-        if (KeyListener.isKeyPressed(GLFW_KEY_UP)) {
-            if (lastKey != GLFW_KEY_UP) {
-                lastKey = GLFW_KEY_UP;
-                spriteIndex = 9;
-            }
-            obj1.transform.position.set(new Vector2f(obj1.transform.position.x, obj1.transform.position.y + dt * 50f));
-            if(spriteFlipTimeLeft <= 0){
-                spriteFlipTimeLeft = spriteFlipTime;
-                spriteIndex++;
-                if (spriteIndex > 13){
-                    spriteIndex = 9;
-                }
-                obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
-            }else {
-                spriteFlipTimeLeft -= dt;
-            }
-        } else if (KeyListener.isKeyPressed(GLFW_KEY_DOWN)) {
-            obj1.transform.position.set(new Vector2f(obj1.transform.position.x, obj1.transform.position.y - dt * 50f));
-        }*/
-
-        MouseListener.getOrthoX();
+        mouseControls.update(dt);
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);
@@ -151,7 +101,8 @@ public class LevelEditorScene extends Scene {
 
             ImGui.pushID(i);
             if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y)){
-                System.out.println("Button " + i + "clicked");
+                GameObject object = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+                mouseControls.pickupObject(object);
             }
             ImGui.popID();
 
